@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:tailwind": "npx tailwindcss build ./public/stylesheets/tailwind.css -o ./public/stylesheets/tailwindoutput.css",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "autoprefixer": "^10.0.4",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "postcss": "^8.1.10",
+    "tailwindcss": "^2.0.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",
