@@ -1,30 +1,25 @@
 <template>
-  <div id="app">
-    <div class="grid grid-cols-6">
-      <div class="">
-        <Navigation />
-      </div>
-      <div class="col-span-5">
-        <Dashbord />
-      </div>
+  <div id="app"  class="h-full bg-gray-100">
+    <div class="">
+      <router-view />
     </div>
+    <notifications group="message" position="top center"/>
   </div>
 </template>
 
 <script>
-import Dashbord from "./components/Dashbord.vue";
-import Navigation from "./components/Navigation.vue";
 
 export default {
   name: "App",
   components: {
-    Dashbord,
-    Navigation,
   },
 };
 </script>
 
 <style>
+body{
+  min-height: 100vh;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

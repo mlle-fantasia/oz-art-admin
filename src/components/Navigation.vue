@@ -1,24 +1,35 @@
 <template>
-  <div class="navigation pt-10 bg-gray-100 h-full">
+  <div class="navigation pt-10 bg-white h-full">
     <div class="py-5 px-10 hover:bg-gray-300">
-      <router-link class="" :to="{ path: '/' }">Accueil</router-link>
+      <router-link class="" :to="{ path: '/admin' }">Accueil</router-link>
     </div>
     <div class="py-5 px-10 hover:bg-gray-300">
-      <router-link class="" :to="{ path: '/shop' }">Boutique</router-link>
+      <router-link class="" :to="{ path: '/admin/shop' }">Boutique</router-link>
     </div>
     <div class="py-5 px-10 hover:bg-gray-300">
-      <router-link class="w-full" :to="{ path: '/newsletter' }"
+      <router-link class="w-full" :to="{ path: '/admin/newsletter' }"
         >Newsletter</router-link
       >
     </div>
     <div class="py-5 px-10 hover:bg-gray-300">
-      <router-link class="" :to="{ path: '/blog' }">Blog</router-link>
+      <router-link class="" :to="{ path: '/admin/blog' }">Blog</router-link>
     </div>
     <div class="py-5 px-10 hover:bg-gray-300">
-      <router-link class="" :to="{ path: '/profiluser' }"
+      <router-link class="" :to="{ path: '/admin/profiluser' }"
         >Profil utilisateur</router-link
       >
     </div>
+        <div class="py-5 px-10 hover:bg-gray-300">
+      <router-link class="" :to="{ path: '/admin/profiluser' }"
+        >Messages</router-link
+      >
+    </div>
+    <div class="py-5 px-10 hover:bg-gray-300">
+      <a class="" href="#" @click="disconnect"
+        >Se déconnecter</a
+      >
+    </div>
+     
   </div>
 </template>
 
@@ -28,6 +39,13 @@ export default {
   props: {
     msg: String,
   },
+  methods:{
+    disconnect(){
+        localStorage.setItem("token","")
+        localStorage.setItem("user","")
+        window.location = this.$config.server_url;
+    }
+  }
 };
 </script>
 

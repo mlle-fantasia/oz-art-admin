@@ -19,6 +19,18 @@ vert: #81b29a
 jaune: #f2cc8f 
 
 */
+/*************************/
+.alert {
+	font-weight: 800;
+	padding: 7px 15px;
+	border-radius: 5px;
+	margin: 8px 10px;
+}
+.alert-red {
+	background-color: #dc7c7c;
+	border: 1px solid #ab4d4d;
+	color: #540f0f;
+}
 
 /************* les boutons **************/
 
@@ -62,8 +74,8 @@ input:checked ~ .toggle__line {
 /*********** images avatar ************/
 .avatar-absolute {
 	position: absolute;
-	top: 10px;
-	left: calc(50% - 100px);
+	top: -70px;
+	left: calc((100% / 12 * 9) / 2 - 100px);
 }
 .container-avatar-user {
 	background-position: center;
@@ -127,4 +139,12 @@ input:checked ~ .toggle__line {
 	.message-dialog {
 		width: 40%;
 	}
+}
+
+/********************/
+
+.admin-card {
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 15px;
 }
