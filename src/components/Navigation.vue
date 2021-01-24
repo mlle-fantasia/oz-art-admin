@@ -1,25 +1,30 @@
 <template>
   <div class="navigation pt-10 bg-white h-full">
-    <div class="py-5 px-10 hover:bg-gray-300">
+    <div :class="this.$route.name === 'dashbord'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link class="" :to="{ path: '/admin' }">Accueil</router-link>
     </div>
-    <div class="py-5 px-10 hover:bg-gray-300">
-      <router-link class="" :to="{ path: '/admin/shop' }">Boutique</router-link>
+    <div  :class="this.$route.name === 'shop'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
+      <router-link  :to="{ path: '/admin/shop' }">Boutique</router-link>
     </div>
-    <div class="py-5 px-10 hover:bg-gray-300">
+    <div :class="this.$route.name === 'newsletters'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link class="w-full" :to="{ path: '/admin/newsletter' }"
         >Newsletter</router-link
       >
     </div>
-    <div class="py-5 px-10 hover:bg-gray-300">
+    <div :class="this.$route.name === 'blog'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link class="" :to="{ path: '/admin/blog' }">Blog</router-link>
     </div>
-    <div class="py-5 px-10 hover:bg-gray-300">
+    <div :class="this.$route.name === 'profiluser'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300">
       <router-link class="" :to="{ path: '/admin/profiluser' }"
         >Profil utilisateur</router-link
       >
     </div>
-        <div class="py-5 px-10 hover:bg-gray-300">
+    <div :class="this.$route.name === 'basket'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300">
+      <router-link class="" :to="{ path: '/admin/profiluser' }"
+        >Panier</router-link
+      >
+    </div>
+        <div :class="this.$route.name === 'messages'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300">
       <router-link class="" :to="{ path: '/admin/profiluser' }"
         >Messages</router-link
       >
@@ -51,4 +56,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.link-active{
+  background-color: #eab0a1;
+}
 </style>

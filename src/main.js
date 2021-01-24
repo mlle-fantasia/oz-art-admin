@@ -1,7 +1,11 @@
 import Vue from "vue";
+import Vuex from "vuex";
+Vue.use(Vuex);
+
 import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
+import store from "./store";
 
 import Notifications from "vue-notification";
 Vue.use(Notifications);
@@ -23,7 +27,7 @@ axios.interceptors.response.use(
 	function(error) {
 		const originalRequest = error.config;
 		if (error.response.status === 401 && !originalRequest._retry) {
-			console.log("coucou dans interceptor refreshtoken");
+			console.log("interceptor refreshtoken", originalRequest._retry);
 			originalRequest._retry = true;
 			return axios
 				.post(config.server_url + "/admin/refreshtoken", {
@@ -33,9 +37,12 @@ axios.interceptors.response.use(
 					if (res.status === 200) {
 						console.log("res data interceptor refreshtoken", res.data.data);
 						// 1) put token to LocalStorage
-						localStorage.setItem("token", res.data.data.token);
-						localStorage.setItem("refreshtoken", res.data.data.refreshtoken);
-						localStorage.setItem("user", JSON.stringify(res.data.data.user));
+						let data = {
+							token: res.data.data.token,
+							refreshtoken: res.data.data.refreshtoken,
+							user: res.data.data.user,
+						};
+						store.commit("set_connexion", data);
 						// 2) return originalRequest object with Axios.
 						originalRequest.headers["x-auth-accesstoken"] = localStorage.getItem("token");
 						return axios(originalRequest);
@@ -51,5 +58,6 @@ Vue.config.productionTip = false;
 
 new Vue({
 	router,
+	store,
 	render: (h) => h(App),
 }).$mount("#app");

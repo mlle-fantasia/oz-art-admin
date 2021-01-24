@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "./store";
+import axios from "axios";
 
 import Login from "./components/Login.vue";
 import CreateAccount1 from "./components/CreateAccount1.vue";
@@ -15,8 +17,8 @@ Vue.use(VueRouter);
 const routes = [
 	{
 		path: "/",
-		name: "home",
-		component: Login,
+		name: "dashbord",
+		component: Dashbord,
 	},
 	{
 		path: "/login",
@@ -50,22 +52,22 @@ const routes = [
 	},
 	{
 		path: "/admin/shop",
-		name: "dashbord",
+		name: "shop",
 		component: Shop,
 	},
 	{
 		path: "/admin/newslettres",
-		name: "dashbord",
+		name: "newsletters",
 		component: Dashbord,
 	},
 	{
 		path: "/admin/blog",
-		name: "dashbord",
+		name: "blog",
 		component: Dashbord,
 	},
 	{
 		path: "/admin/profiluser",
-		name: "userprofil",
+		name: "profiluser",
 		component: UserProfil,
 	},
 ];
@@ -73,5 +75,71 @@ const routes = [
 const router = new VueRouter({
 	routes,
 });
+
+router.beforeEach(async (to, from, next) => {
+	console.log("beforeEach to et connected : ", to.name, store.state.connected);
+
+	async function autolog() {
+		if (!localStorage.getItem("token")) return false;
+		if (store.state.connected) return true;
+
+		let response = await axios.post(process.env.VUE_APP_SERVER_URL + "/admin/autologin", {
+			token: localStorage.getItem("token"),
+		});
+		if (response.data.err) {
+			localStorage.setItem("token", "");
+			return false;
+		}
+
+		console.log("response autolog", response.data);
+
+		store.commit("set_user", response.data.data);
+		store.commit("set_connected", true);
+		return true;
+	}
+
+	if (!store.state.connected) await autolog();
+	if (to.name !== "login" && !store.state.connected) return next({ path: "/login" });
+	if (to.name === "login" && !store.state.connected) return next();
+	if (to.name === "login" && store.state.connected) return next({ path: "/" });
+	if (!store.state.connected) return next({ path: "/login" });
+
+	return next();
+});
+
+/* router.beforeEach(async (to, from, next) => {
+	// console.log("to,from", to, from);
+	async function autolog() {
+		// console.log("store.state.token", store.state.token);
+		if (!localStorage.getItem("token")) return false;
+		if (store.state.connected) return true;
+		console.log('localStorage.getItem("token")', localStorage.getItem("token"));
+		try {
+			let response = await axios.post(process.env.VUE_APP_SERVER_URL + "/admin/autologin", {
+				token: localStorage.getItem("token"),
+			});
+			if (response.data.err) {
+				return false;
+			}
+			console.log("");
+			store.commit("set_user", response.data.data.user);
+			return true;
+		} catch (error) {
+			console.error("ko", error);
+			return false;
+		}
+	}
+	console.log("to.name", to.name);
+	if (to.name == "resetpass") return next();
+
+	if (to.name != "login" && localStorage.getItem("token")) await autolog();
+	if (to.name == "login" && store.state.connected) return next({ path: "/" });
+	if (to.name == "login" && !store.state.connected) {
+		return next();
+	}
+	if (!store.state.connected) return next({ path: "/login" });
+
+	return next();
+}); */
 
 export default router;

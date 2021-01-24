@@ -1,59 +1,106 @@
 <template>
 <div class="container mx-auto pt-20 pb-40">
-    <h1 class="text-center mb-4 text-md">Rejoindre la comunoté OZ art</h1>
-    <div class="w-full max-w-md mx-auto">
-        <div v-if="inscriptionOk" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          un email vous a été envoyé, <br> veillez verifier cliquer sur le lien qu'il contient pour poursuivre votre inscription
-        </div>
-        <form action="/createaccount/step1" method="post" novalidate="novalidate"
-        onsubmit="return validForm()" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div class="mb-4">
+    <h1 class="text-center mb-4 text-md">Inscrition : étape 2 sur 3</h1>
 
-              
-            <!-- message d'alerte s'il y a une erreur -->
-              <div v-if="inscriptionKo" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
-                <strong class="font-bold">Il y a une erreur :</strong>
-                <span class="block sm:inline">{{error}}</span>
+    <div class="w-full max-w-4xl mx-auto mt-4 p-8 rounded  cursor-pointer">
+      <form @submit="createAccount2">
+
+     <div class="text-xl font-semibold mb-2 mt-4">Informations personnelles</div> 
+     <div class="text-md mb-3">Trois champs obligatoires : votre nom et votre prénom et votre email</div> 
+      <div>
+         
+          <div class="grid grid-cols-2 gap-4">
+              <div>
+                
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">
+                      Prénom *
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" name="firstname" v-model="user.firstname">
               </div>
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                      Nom *
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" name="name" v-model="user.name">
+              </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-2">
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
+                      Email *
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" name="email" v-model="user.email">
+              </div>
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="tel">
+                      Téléphone 
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tel" type="phone" name="tel" v-model="user.phone">
+              </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-2">
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="address1">
+                      Adresse 
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address1" type="text" name="address1" v-model="user.address1">
+              </div>
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="address2">
+                      ligne complémentaire
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address2" type="text" name="address2" v-model="user.address2">
+              </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-2">
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="zip">
+                      Code postal 
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="zip" type="text" name="zip" v-model="user.zip">
+              </div>
+              <div>
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+                      Ville
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="city" type="text" name="city" v-model="user.city">
+              </div>
+          </div>
 
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
-              Email 
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="email" id="email" type="text" name="email" >
-          </div>
-          <div >
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password1" >
-              Mot de passe
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" v-model="password1" id="password1" type="password" name="password1" >
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password2">
-                Répétez le mot de passe
-              </label>
-              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" v-model="password2" id="password2" type="password" name="password2" >
-            <!-- <p class="text-red-500 text-xs italic">veillez renseigner un mot de passe.</p> -->
-            
-          </div>
-          <div class="mb-6">
-            <div class="shadow btn-radio hover:bg-blue-200">
-              <input type="radio" id="buyer" name="type" value="buyer"
-                     checked>
-              <label class="ml-2" for="buyer">Compte acheteur</label>
-            </div>
-            
-            <div class="shadow btn-radio hover:bg-blue-200">
-              <input type="radio" id="seller" name="type" value="seller">
-              <label class="ml-2"  for="seller">Compte vendeur</label>
-            </div>
-          </div>
-          <div class="flex items-center justify-end">
-           
-             <button @click="createAccount" class="btn-primary" type="submit">
-                Créer
-              </button>
-            
-          </div>
-        </form>
+         
       </div>
+      <div class="text-xl font-semibold mb-3 mt-4"> La boutique</div>  
+      <div class="text-md mb-3">Deux champs obligatoires : le nom et l'avatar de votre boutique. vous pourrez compléter et personnaliser votre boutique ultérieurement.</div>   
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="avatar">
+            Avatar de la boutique *
+          </label>
+            <input name="avatar" type="file" id="avatar" size="40"
+            class="w-full shadow bg-white appearance-none border rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline truncate" accept="image/png, image/jpeg" @change="selectAvatarFile">
+        </div>
+        <div >
+          <div id="img-avatar" class="container-avatar-user avatar-width-150" >
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mt-2">
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="shop_name">
+                Nom de la boutique *
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="shop_name" type="text" name="shop_name" v-model="shop_name">
+        </div>
+        <div>
+           
+        </div>
+    </div>
+      <div>
+        <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+      </div>
+
+  </form>
+  </div>
 </div>
 
 </template>
@@ -64,37 +111,83 @@ export default {
   props: {},
   data(){
       return{
-        inscriptionOk:false,
-        inscriptionKo:false,
-        email:"",
-        password1:"",
-        password2:"",
-        type:"",
-        errTxt:""
+        user:{},
+        shop_name:"",
+        avatarFileSelected:{}
       }
   },
-  mounted(){
-
-  },
-  methods:{
-    async createAccount(){
-        if(!this.email || !this.password1 || !this.password2){
-            this.errTxt="Merci de remplir tous les champs"
-        }
-        if(this.password1 !== this.password2){
-            this.errTxt="Merci d'indiquer des mots de passe identiques"
-        }
-         let response = await this.$axios.post(
+  async mounted(){
+    console.log('coucou1',);
+        let response = await this.$axios.post(
         this.$config.server_url +
-          "/createaccount/step1",
-        { type:this.type , email: this.email, password: this.password1 }
+          "/createaccount/step2/buyerandseller",
+        { token:this.$route.query.token }
         );
         if(response.data.err){
-            this.alertTxt = response.data.errtxt;
+           this.$notify({
+            group: 'message',
+            type: 'error',
+            title: 'Inscription',
+            text: response.data.errtxt,
+          });
+          //this.$router.push("/")
         }else{
-            this.$router.push("/admin")
+          localStorage.setItem("token", response.data.data.token);
+          localStorage.setItem("refreshtoken", response.data.data.refreshtoken);
+          localStorage.setItem("user", JSON.stringify(response.data.data.user));
+          this.user=response.data.data.user;
         }
-    }
+        console.log('coucou2',this.user);
+  },
+  methods:{
+    selectAvatarFile(e){
+        let files = e.target.files;
+        if (!files.length) return;
+        this.avatarFileSelected = e.target.files[0];
+    },
+    async createAccount2(event){
+        event.preventDefault();
+        console.log('je passe',);
+        this.user.shop_name = this.shop_name
+        let response = await this.$axios.post(
+        this.$config.server_url +
+          "/createaccount/step2/seller",this.user,
+        );
+        console.log('response',response);
+        if(response.data.err){
+            this.$notify({
+            group: 'message',
+            type: 'error',
+            title: 'Inscription',
+            text: response.data.errtxt,
+          });
+        }else{
+          this.$store.commit("set_user", this.user);
+          console.log('this.avatarFileSelected',this.avatarFileSelected);
+          if(this.avatarFileSelected && this.avatarFileSelected.name){ 
+            let formData = new FormData();
+            formData.append("avatarfile", this.avatarFileSelected);
+            let response = await this.$axios.post(
+              this.$config.server_url + "/createaccount/step2/avatar",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                }
+              }
+            );
+            console.log('response',response);
+          }
+          this.$notify({
+            group: 'message',
+            type: 'success',
+            title: 'Inscription',
+            text: "Votre inscrition est finalisé, bienvenue sur votre espace administrateur",
+          });
+            if(this.user.type === "seller")this.$router.push("/admin")
+            if(this.user.type === "buyer")this.$router.push("/admin/profiluser")
+        }
+    },
   }
 };
 </script>

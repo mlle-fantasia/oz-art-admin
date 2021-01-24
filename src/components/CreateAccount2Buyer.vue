@@ -1,13 +1,13 @@
 <template>
 <div class="container mx-auto pt-20 pb-40">
-    <h1 class="text-center mb-4 text-md">Quelques informations suplémentaires</h1>
+    <h1 class="text-center mb-4 text-md">Inscrition dernière étape : quelques informations suplémentaires</h1>
 
-    <div class="mt-4 p-8 bg-creme rounded  cursor-pointer">
+    <div class="w-full max-w-4xl mx-auto mt-4 p-8 rounded  cursor-pointer">
       <form id="form_step2" @submit="createAccount2">
       <div class="text-xl font-semibold mb-3"> Avatar </div> 
-      <div class="text-md mb-2"> Choisissez un avatar par défault </div> 
+      <div class="text-md mb-2" v-if="this.$store.state.user.type==='buyer'"> Choisissez un avatar par défault </div> 
       <!-- <input name="avatardefault" type="hidden" id="avatar-default"> -->
-      <div class="grid grid-cols-10 gap-6 mb-3">
+      <div class="grid grid-cols-10 gap-6 mb-3" v-if="this.$store.state.user.type==='buyer'">
           <div>
               <img @click="avatarDefaultSelected ='chat.jpg'"
                :class="avatarDefaultSelected==='chat.jpg'?  'avatar-selected' :''" 
@@ -39,7 +39,7 @@
               src="/images/avatars-default/poisson.jpg" alt="photo de profil">
           </div>
       </div>
-      <div class="text-md mb-2"> Ou choisissez votre propre avatar</div> 
+      <div class="text-md mb-2"> {{this.$store.state.user.type==='buyer' ? "Choisissez vore  avatar" : "Ou choisissez votre propre avatar"}}</div> 
       <div class="grid grid-cols-2 ">
           <input name="avatar" type="file" id="avatar" size="40"
           class="w-full shadow bg-white appearance-none border rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -175,6 +175,7 @@ export default {
             text: response.data.errtxt,
           });
         }else{
+          this.$store.commit("set_user", this.user);
           console.log('this.avatarFileSelected',this.avatarFileSelected);
           if(this.avatarFileSelected && this.avatarFileSelected.name){ 
             let formData = new FormData();
@@ -196,7 +197,8 @@ export default {
             title: 'Inscription',
             text: "Votre inscrition est finalisé, bienvenue sur votre espace administrateur",
           });
-            this.$router.push("/admin")
+            if(this.user.type === "seller")this.$router.push("/admin")
+            if(this.user.type === "buyer")this.$router.push("/admin/profiluser")
         }
     }
   }

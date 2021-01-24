@@ -9,12 +9,12 @@
             <h1 class="text-xl font-bold mb-4">Profil utilisateur</h1>
           </div>
           <div class="grid grid-cols-12 gap-4 relative mt-4">
-            <div class="container-avatar-user avatar-width-200 avatar-absolute" :style=" avatarInputSelectedBinary ? 'background-image: url(' + avatarInputSelectedBinary + ');' : 'background-image: url(' + avatarUrl + ');'">
+            <div v-if="this.$store.state.user.type==='buyer'" class="container-avatar-user avatar-width-200 avatar-absolute" :style=" avatarInputSelectedBinary ? 'background-image: url(' + avatarInputSelectedBinary + ');' : 'background-image: url(' + avatarUrl + ');'">
             </div>
 
-            <div class="col-span-9 mt-4 p-8 bg-creme rounded cursor-pointer">
+            <div class="col-span-9 mt-4 p-8 bg-white rounded cursor-pointer">
                 <form @submit="saveUser" id="form-user">
-            <div class="text-xl font-semibold mb-20">Mes coordonnées </div>  
+            <div class="text-xl font-semibold" :class="this.$store.state.user.type==='buyer'?'mb-20': 'mb-3'">Mes coordonnées </div>  
                 <div>
                 
                     <div class="grid grid-cols-2 gap-4">
@@ -81,7 +81,7 @@
 
             </form>
             </div>
-            <div class="col-span-3 mt-4 p-8 bg-creme rounded  cursor-pointer" >
+            <div class="col-span-3 mt-4 p-8 rounded bg-white cursor-pointer" v-if="this.$store.state.user.type==='buyer'">
                 <form @submit="saveAvatar" id="form-avatar">
                 <div class="text-xl font-semibold mb-3"> Avatar </div> 
         
@@ -119,20 +119,20 @@
             </div>
         </div>
         <div class="grid grid-cols-2 gap-4  mt-4">
-            <div class="mt-4 p-8 bg-creme rounded cursor-pointer">
+            <div class="mt-4 p-8 bg-white rounded cursor-pointer">
                 <div class="text-xl font-semibold"> Mes boutiques et création préférées </div> 
             </div>
-            <div class="mt-4 p-8 bg-creme rounded cursor-pointer">
+            <div class="mt-4 p-8 bg-white rounded cursor-pointer">
                 <div class="text-xl font-semibold"> Mes newsletters </div> 
             </div>
         </div>
         <div class="grid grid-cols-1 gap-4  mt-4">
-            <div class="my-4 p-8 bg-creme rounded cursor-pointer">
+            <div class="my-4 p-8 bg-white rounded cursor-pointer">
                 <div class="text-xl font-semibold"> Mon historique d'achat </div> 
             </div>
         </div>
         <div class="grid grid-cols-1 gap-4  mt-4">
-             <div class="my-4 p-8 bg-creme rounded cursor-pointer">
+             <div class="my-4 p-8 bg-white rounded cursor-pointer">
                 <div class="text-xl font-semibold"> Autres actions </div> 
                 <form @submit="deleteUser" id="form_delete">
                     <button id="btn_delete" class="btn-primary mt-2" type="submit">Supprimer mon compte</button>
@@ -171,16 +171,17 @@ export default {
       avatarDefaultSelected:null,
       avatarUrl:"", 
       showMlleDialog:false,
-      
     }
   },
   async mounted(){
+      console.log('this.$store.state.user',this.$store.state.user);
     this.getUser();
   },
   methods:{
       async getUser(){
-          this.avatarInputSelected =null;
-        let userId = JSON.parse(localStorage.getItem("user"))._id;
+        this.avatarInputSelected = null;
+        console.log('this.$store.state.user id',this.$store.state.user._id);
+        let userId = this.$store.state.user._id;
         let response = await this.$axios.get(
                 this.$config.server_url +
                 "/users/"+ userId,

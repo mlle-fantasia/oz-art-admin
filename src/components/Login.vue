@@ -64,10 +64,15 @@ export default {
       if(response.data.err){
         this.alertTxt = response.data.errtxt;
       }else{
-        localStorage.setItem("token", response.data.data.token);
-        localStorage.setItem("refreshtoken", response.data.data.refreshtoken);
-        localStorage.setItem("user", JSON.stringify(response.data.data.user));
-        this.$router.push("/admin")
+        console.log('response.data.data',response.data.data);
+        let data = {
+          token : response.data.data.token,
+          refreshtoken : response.data.data.refreshtoken,
+          user : response.data.data.user
+        }
+        this.$store.commit("set_connexion", data);
+        if(this.$store.state.user.type === "seller")this.$router.push("/admin")
+        if(this.$store.state.user.type === "buyer")this.$router.push("/admin/profiluser")
       }
     }
   }

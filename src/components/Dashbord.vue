@@ -27,12 +27,11 @@ export default {
     }
   },
   async mounted(){
-    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = this.$store.state.user;
     console.log('user',this.user);
-    await this.$axios.get(
-        this.$config.server_url + "/users",
-      );
-      //console.log('response',response);
+    if(this.$store.state.user.type === "buyer"){
+      this.$router.push("/admin/profiluser");
+    }
   }
 };
 </script>
