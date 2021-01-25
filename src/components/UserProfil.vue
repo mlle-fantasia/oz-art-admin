@@ -243,7 +243,7 @@ export default {
                 });
                 
           },
-          async saveUser(){
+          async saveUser(event){
             event.preventDefault();
             let response = await this.$axios.put(
                 this.$config.server_url +
