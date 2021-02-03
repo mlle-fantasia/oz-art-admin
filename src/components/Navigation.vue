@@ -1,7 +1,10 @@
 <template>
   <div class="navigation pt-10 bg-white h-full">
+    <div class="py-5 px-10">
+      <a :href="this.$config.server_url">Retour site</a>
+    </div>
     <div :class="this.$route.name === 'dashbord'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
-      <router-link class="" :to="{ path: '/admin' }">Accueil</router-link>
+      <router-link class="" :to="{ path: '/admin' }">Tableau de bord</router-link>
     </div>
     <div  :class="this.$route.name === 'shop'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link  :to="{ path: '/admin/shop' }">Boutique</router-link>
@@ -46,8 +49,7 @@ export default {
   },
   methods:{
     disconnect(){
-        localStorage.setItem("token","")
-        localStorage.setItem("user","")
+        this.$store.commit("set_connexion", {});
         window.location = this.$config.server_url;
     }
   }

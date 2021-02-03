@@ -64,11 +64,11 @@ export default {
       if(response.data.err){
         this.alertTxt = response.data.errtxt;
       }else{
-        console.log('response.data.data',response.data.data);
         let data = {
           token : response.data.data.token,
           refreshtoken : response.data.data.refreshtoken,
-          user : response.data.data.user
+          user : response.data.data.user,
+          connect:true,
         }
         this.$store.commit("set_connexion", data);
         if(this.$store.state.user.type === "seller")this.$router.push("/admin")

@@ -35,12 +35,20 @@ axios.interceptors.response.use(
 				})
 				.then((res) => {
 					if (res.status === 200) {
+						console.log("res.data.err", res.data.err);
+						if (res.data.err === "refreshtoken_expired") {
+							let data = {
+								connect: false,
+							};
+							store.commit("set_connexion", data);
+						}
 						console.log("res data interceptor refreshtoken", res.data.data);
 						// 1) put token to LocalStorage
 						let data = {
 							token: res.data.data.token,
 							refreshtoken: res.data.data.refreshtoken,
 							user: res.data.data.user,
+							connect: true,
 						};
 						store.commit("set_connexion", data);
 						// 2) return originalRequest object with Axios.

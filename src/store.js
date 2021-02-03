@@ -16,13 +16,20 @@ export default new Vuex.Store({
 			state.connected = isConnected;
 		},
 		set_connexion(state, data) {
-			console.log("set_connexion", data.user);
-			if (data.token) localStorage.setItem("token", data.token);
-			if (data.refreshtoken) localStorage.setItem("refreshtoken", data.refreshtoken);
-			localStorage.setItem("user", JSON.stringify(data.user));
-			state.user = data.user;
-			state.connected = true;
-			console.log("connected ? ", state.user, state.connected);
+			console.log("data.connect", data.connect);
+			if (data.connect) {
+				if (data.token) localStorage.setItem("token", data.token);
+				if (data.refreshtoken) localStorage.setItem("refreshtoken", data.refreshtoken);
+				localStorage.setItem("user", JSON.stringify(data.user));
+				state.user = data.user;
+				state.connected = true;
+			} else {
+				localStorage.setItem("token", "");
+				localStorage.setItem("refreshtoken", "");
+				localStorage.setItem("user", JSON.stringify({}));
+				state.user = {};
+				state.connected = false;
+			}
 		},
 	},
 	actions: {},
