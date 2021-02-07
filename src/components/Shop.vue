@@ -6,7 +6,7 @@
       </div>
       <div class="col-span-5 p-10">
           <div>
-            <h1 class="text-xl font-bold mb-4">Boutique</h1>
+            <h1 class="font-bold mb-4">Boutique</h1>
           </div>
           <div class="grid grid-cols-6 gap-4">
                         

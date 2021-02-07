@@ -144,8 +144,6 @@ input:checked ~ .toggle__line {
 	border: 2px solid black;
 }
 
-/**************** fenetres dialogue ******************/
-
 /********** elements **********/
 
 .element-line {
@@ -154,4 +152,10 @@ input:checked ~ .toggle__line {
 }
 .element-line:hover {
 	background-color: #c6eadb;
+}
+.card-chiffre {
+	padding: 20px 10px;
+	border-radius: 20px;
+	text-align: center;
+	box-shadow: 1px 1px 4px 1px #c3c3c3;
 }

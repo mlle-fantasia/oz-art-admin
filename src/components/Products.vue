@@ -11,33 +11,17 @@
           <div class="grid grid-cols-6 gap-4">
                         
                 <div class="col-span-4">
-                    <div class="mt-4 p-8 rounded bg-white">
-                        <!-- liste des produits -->
-                        <div v-for="product in products" :key="product._id">
-                            <div class="element-line flex">
-                                <div class="flex-grow">
-                                <div></div>
-                                <div>
-                                     {{product.name}} 
-                                </div>
-                                <div>
-                                    {{product.price}}
-                                </div>
-                                </div>
-                                <div class="flex ">
-                                    <div @click="editProduct(product)">
-                                        <icon class="ml-2 cursor-pointer" color="gray" name="pen"></icon>
-                                    </div>
-                                    <div @click="deleteProduct(product)">
-                                        <icon class="ml-2 cursor-pointer" color="gray" name="trash"></icon>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="grid grid-cols-6 gap-4 my-3">
+                        <!-- Chiffres -->
+                        <div  class="card-chiffre bg-vert ">
+                            <div class="text-4xl font-bold">{{products.length}}</div>
+                            <div class="text-lg ">produits</div>
                         </div>
                         
                     </div>
 
                     <div class=" mt-4 p-8 bg-white rounded ">
+                        <!-- Formulaire ajouter un produit -->
                         <button v-if="!showProductForm" type="button" @click="showProductForm = true" class="btn btn-primary">Ajouter un produit</button>
                         <div v-if="showProductForm">
                             <h2>{{productSelected._id ?'Edition d\'un produit':'Nouveau produit'}}</h2>
@@ -98,8 +82,30 @@
 
                 </div>
 
-                <div class="col-span-2 mt-4 p-8 pt-40 rounded bg-white relative">
-                    
+                <div class="col-span-2 mt-4 p-8 rounded bg-white relative">
+                    <!-- liste des produits -->
+                    <h2 class="mb-2">Vos produits</h2>
+                        <div v-for="product in products" :key="product._id">
+                            <div class="element-line flex">
+                                <div class="flex-grow">
+                                <div></div>
+                                <div>
+                                     {{product.name}} 
+                                </div>
+                                <div>
+                                    {{product.price}}
+                                </div>
+                                </div>
+                                <div class="flex ">
+                                    <div @click="editProduct(product)">
+                                        <icon class="ml-2 cursor-pointer" color="gray" name="pen"></icon>
+                                    </div>
+                                    <div @click="deleteProduct(product)">
+                                        <icon class="ml-2 cursor-pointer" color="gray" name="trash"></icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
           </div>
       </div>

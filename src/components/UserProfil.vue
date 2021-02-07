@@ -6,7 +6,7 @@
       </div>
       <div class="col-span-5 p-10">
           <div>
-            <h1 class="text-xl font-bold mb-4">Profil utilisateur</h1>
+            <h1 class="font-bold mb-4">Profil utilisateur</h1>
           </div>
           <div class="grid grid-cols-12 gap-4 relative mt-4">
             <div v-if="this.$store.state.user.type==='buyer'" class="container-avatar-user avatar-width-200 avatar-absolute" :style=" avatarInputSelectedBinary ? 'background-image: url(' + avatarInputSelectedBinary + ');' : 'background-image: url(' + avatarUrl + ');'">

@@ -19,7 +19,7 @@
         >Newsletter</router-link
       >
     </div> -->
-    <div :class="this.$route.name === 'blog'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
+    <div :class="this.$route.name === 'blog'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.right==='SUPER_ADMIN'">
       <router-link class="" :to="{ path: '/admin/blog' }">Blog</router-link>
     </div>
     <div :class="this.$route.name === 'profiluser'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300">
