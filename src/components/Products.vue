@@ -39,8 +39,16 @@
                                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" rows="6" v-model="productSelected.description"></textarea>
                                 </div>
                                 <div>
+                                    <h2 class="mt-3"> Les images</h2>
+                                    <div class="grid grid-cols-6 mt-2 gap-3" v-if="productSelected.pictures.length">
+                                        <div v-for="(img,index) in productSelected.pictures" :key="index">
+                                            <img :id="'productimg' + index"  :class="index===0?'avatar-selected': ''"
+                                                class="rounded avatar-default" :src="$config.server_url + img" alt="photo du produit">
+                                                <p v-if="index===0" class="text-center">Image principale</p>
+                                        </div>
+                                    </div>
                                     <label class="block text-gray-700 text-sm font-bold my-2" for="imgproduct">
-                                        Les images  
+                                        Ajoutez des images  
                                     </label>
                                     <input name="imgproduct" multiple type="file" id="imgproduct" size="40" @change="changeimgProduct"
                                     class="w-full shadow appearance-none border rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -48,8 +56,8 @@
                                     <div class="grid grid-cols-6 mt-2 gap-3" v-if="imgProductInput.length">
                                         <div v-for="(img, index) in imgProductInput" :key="index">
                                             <img :id="'productimg' + index"  :class="index===0?'avatar-selected': ''"
-                                                class="rounded avatar-default" :src="img" alt="photo du produit">
-                                                <p v-if="index===0" class="text-center">Image principale</p>
+                                                class="rounded avatar-default" :src="img.binary" alt="photo du produit">
+                                                <!-- <p v-if="index===0" class="text-center">Image principale</p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +138,7 @@ import MlleDialog from "./elements/MlleDialog.vue";
 //import MlleFormText from "./elements/MlleFormText.vue";
 
 export default {
-  name: "dashbord",
+  name: "products",
   components: {
     Navigation,MlleDialog
   },
@@ -142,7 +150,6 @@ export default {
         /// ajouter un produit
         showProductForm:false,
         productSelected:{},
-        imgProduct:[],
         imgProductInput:[],
         showMlleDialog:false,
     }
@@ -162,8 +169,11 @@ export default {
     addCharacteristic(product){
         product.characteristics.push({key:"", value:""})
     },
-    editProduct(product){
-        this.productSelected = product;
+    async editProduct(product){
+        let response = await this.$axios.get(
+            this.$config.server_url + "/admin/products/" +  product._id ,
+        );
+        this.productSelected = response.data.product;
         this.showProductForm = true;
     },
     deleteProduct(product){
@@ -193,16 +203,17 @@ export default {
 
         for (let i = 0; i < event.target.files.length; i++) {
             const file = event.target.files[i];
-            //this.avatarUrl = event.target.files[0]
+            let image = {file:event.target.files[i], binary:""};
             let reader = new FileReader();
-            let me = this;
             reader.onload = (function(wthef) {
                 console.log('wthef',wthef);
                 return function(e) {
-                    me.imgProductInput.push(e.target.result) 
+                    //me.imgProductInput.push(e.target.result) 
+                    image.binary = e.target.result;
                 };
             })(file);
             reader.readAsDataURL(file);
+            this.imgProductInput.push(image)
         }
         console.log('this.imgProductInput',this.imgProductInput);
     },
@@ -211,14 +222,16 @@ export default {
         event.preventDefault();
         let response;
         // verifier le tableau de caractéristiques
-        let indexsToDelete = []
-        for (let i = 0; i < this.productSelected.characteristics.length; i++) {
-            const item = this.productSelected.characteristics[i];
-            if(!item.key)indexsToDelete.push(i);
-        }
-        for (let j = 0; j < indexsToDelete.length; j++) {
-            const index = indexsToDelete[j];
-            this.productSelected.characteristics.splice(index, 1);
+        if(this.productSelected.characteristics){ 
+            let indexsToDelete = []
+            for (let i = 0; i < this.productSelected.characteristics.length; i++) {
+                const item = this.productSelected.characteristics[i];
+                if(!item.key)indexsToDelete.push(i);
+            }
+            for (let j = 0; j < indexsToDelete.length; j++) {
+                const index = indexsToDelete[j];
+                this.productSelected.characteristics.splice(index, 1);
+            }
         }
         //
         if(this.productSelected._id){
@@ -239,7 +252,8 @@ export default {
           this.notify("error", response.data.errtxt)
         }else{
             if(this.imgProductInput.length){
-                await this.saveImgProduct(this.productSelected._id)
+                let productId = this.productSelected._id ? this.productSelected._id : response.data.product._id
+                await this.saveImgProduct(productId)
             }
             this.notify("success", 'Produit bien enregistré')
             this.cancelAddProduct();
@@ -247,14 +261,15 @@ export default {
         }
     },
     async saveImgProduct(productId){
-        console.log('je passe');
         let formData = new FormData();
+        console.log('this.imgProductInput',this.imgProductInput);
         for (let i = 0; i < this.imgProductInput.length; i++) {
-            formData.append("images", this.imgProductInput[i]);
+            formData.append("images", this.imgProductInput[i].file);
         }
+        console.log('formData',formData.images);
         let response = await this.$axios.post(
             this.$config.server_url +
-            "/products/" + productId + "/images/",
+            "/admin/products/" + productId + "/images/",
             formData,
             {
                 headers: {
@@ -263,12 +278,13 @@ export default {
             }
         
         );
-        console.log('response.data',response.data);
+        console.log('response post image',response.data);
         if(response.data.err){
           this.notify("error", response.data.errtxt)
         }else{
-          this.notify("success", 'L\'avatar a bien été enregistré')
+          this.notify("success", 'Images du produit bien enregistrées')
         }
+        this.imgProductInput = [];
     },
     notify(type, txt, title){
         let title2 = title ? title : "Mise à jour"
