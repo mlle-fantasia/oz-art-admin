@@ -32,20 +32,60 @@ jaune: #f2cc8f
 	color: #540f0f;
 }
 
+/************* les titres **************/
+h1,
+.h1 {
+	font-size: 2.25rem;
+	line-height: 1.75rem;
+	color: #e07a5f;
+}
+
+h2,
+.h2 {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	font-weight: 600;
+	color: #81b29a;
+}
+
+h3,
+.h3 {
+	font-size: 1rem;
+	line-height: 1.75rem;
+	text-transform: uppercase;
+}
+
 /************* les boutons **************/
 
-.btn-primary {
-	background-color: #e07a5f;
-	color: #fff;
+.btn {
 	font-weight: 800;
 	padding: 7px 15px;
 	border-radius: 5px;
 }
+.btn-primary {
+	background-color: #e07a5f;
+	color: #fff;
+}
 .btn-primary:hover {
 	background-color: #963d26;
 }
-
+.btn-primary-reverse {
+	background-color: #fff;
+	color: #e07a5f;
+}
+.btn-primary-reverse:hover {
+	background-color: #e2e2e2;
+}
 .btn-secondary {
+	background-color: #81b29a;
+	color: #fff;
+}
+.btn-secondary:hover {
+	background-color: #56846d;
+}
+.btn-small {
+	font-weight: 500;
+	padding: 3px 11px;
 }
 
 /*********** toggle btn page d'inscription ************/
@@ -106,45 +146,12 @@ input:checked ~ .toggle__line {
 
 /**************** fenetres dialogue ******************/
 
-.container-message-dialog {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #3d405b85;
-}
-.message-dialog {
-	background-color: #fff;
-	width: 95%;
-	margin: auto;
-	height: 300px;
-	border-radius: 2px;
-	position: sticky;
-	top: calc((100vh - 300px) / 2);
-	box-shadow: 1px 1px 8px 0px #00000082;
-}
-.message-dialog-title {
-	border-radius: 2px 2px 0 0;
-}
-.message-dialog-content {
-	border-bottom: 1px solid #f2cc8fbf;
-}
-@media (min-width: 768px) {
-	.message-dialog {
-		width: 80%;
-	}
-}
-@media (min-width: 992px) {
-	.message-dialog {
-		width: 40%;
-	}
-}
+/********** elements **********/
 
-/********************/
-
-/* .admin-card {
-	background-color: #fff;
-	border-radius: 20px;
-	padding: 15px;
-} */
+.element-line {
+	padding: 7px 10px;
+	border-bottom: solid 1px gray;
+}
+.element-line:hover {
+	background-color: #c6eadb;
+}

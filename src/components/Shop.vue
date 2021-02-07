@@ -26,7 +26,7 @@
                               <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" v-model="shop.description"></textarea>
                           </div>
                           <div>
-                              <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+                              <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
                           </div>
                     </form>
                       
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+                        <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
                     </div>
                 
                 </div>
@@ -100,7 +100,7 @@
                     <input name="avatar" type="file" id="avatar" size="40" @change="changeAvatarInput"
                     class="w-full shadow appearance-none border rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             accept="image/png, image/jpeg">
-                            <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+                            <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
             </form>
             </div>
           </div>

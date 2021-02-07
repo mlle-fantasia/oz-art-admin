@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+                        <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
                     </div>
                 
                 </div>
@@ -114,7 +114,7 @@
                     <input name="avatar" type="file" id="avatar" size="40" @change="changeAvatarInput"
                     class="w-full shadow appearance-none border rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             accept="image/png, image/jpeg">
-                            <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+                            <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
             </form>
             </div>
         </div>
@@ -135,7 +135,7 @@
              <div class="my-4 p-8 bg-white rounded cursor-pointer">
                 <div class="text-xl font-semibold"> Autres actions </div> 
                 <form @submit="deleteUser" id="form_delete">
-                    <button id="btn_delete" class="btn-primary mt-2" type="submit">Supprimer mon compte</button>
+                    <button id="btn_delete" class="btn btn-primary mt-2" type="submit">Supprimer mon compte</button>
                 </form>
             </div>
         </div>

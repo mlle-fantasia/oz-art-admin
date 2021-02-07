@@ -9,11 +9,16 @@
     <div  :class="this.$route.name === 'shop'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link  :to="{ path: '/admin/shop' }">Boutique</router-link>
     </div>
-    <div :class="this.$route.name === 'newsletters'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
+    <div :class="this.$route.name === 'products'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
+      <router-link class="w-full" :to="{ path: '/admin/products' }"
+        >Produits</router-link
+      >
+    </div>
+   <!--  <div :class="this.$route.name === 'newsletters'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link class="w-full" :to="{ path: '/admin/newsletter' }"
         >Newsletter</router-link
       >
-    </div>
+    </div> -->
     <div :class="this.$route.name === 'blog'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300" v-if="this.$store.state.user.type==='seller'">
       <router-link class="" :to="{ path: '/admin/blog' }">Blog</router-link>
     </div>
@@ -27,11 +32,11 @@
         >Panier</router-link
       >
     </div>
-        <div :class="this.$route.name === 'messages'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300">
+    <!-- <div :class="this.$route.name === 'messages'? 'link-active': ''" class="py-5 px-10 hover:bg-gray-300">
       <router-link class="" :to="{ path: '/admin/profiluser' }"
         >Messages</router-link
       >
-    </div>
+    </div> -->
     <div class="py-5 px-10 hover:bg-gray-300">
       <a class="" href="#" @click="disconnect"
         >Se déconnecter</a

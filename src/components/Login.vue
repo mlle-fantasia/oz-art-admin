@@ -24,11 +24,11 @@
           </div>
           <div class="flex items-center justify-end mt-6">
            <router-link class="link-footer" to="/createaccount">
-              <button class="btn-primary" type="button">
+              <button class="btn btn-primary" type="button">
                 S'inscrire
               </button>
             </router-link>
-            <button class="btn-primary ml-2" type="submit">
+            <button class="btn btn-primary ml-2" type="submit">
               Se connecter
             </button>
           </div>

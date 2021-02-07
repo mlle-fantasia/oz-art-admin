@@ -46,7 +46,7 @@
           </div>
           <div class="flex items-center justify-end">
            
-             <button class="btn-primary" type="submit">
+             <button class="btn btn-primary" type="submit">
                 Créer
               </button>
             

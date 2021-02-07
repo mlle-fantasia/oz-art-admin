@@ -47,7 +47,7 @@
           </div>
           <div class="flex items-center justify-end">
            
-             <button @click="createAccount" class="btn-primary" type="submit">
+             <button @click="createAccount" class="btn btn-primary" type="submit">
                 Créer
               </button>
             

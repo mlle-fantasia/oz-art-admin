@@ -108,7 +108,7 @@
               </div>
           </div>
           <div>
-              <button class="btn-primary mt-2" type="submit">Enregistrer</button>
+              <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
           </div>
          
       </div>

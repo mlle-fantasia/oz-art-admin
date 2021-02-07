@@ -10,6 +10,7 @@ import CreateAccount3Seller from "./components/CreateAccount3Seller.vue";
 import CreateAccount2Buyer from "./components/CreateAccount2Buyer.vue";
 import Dashbord from "./components/Dashbord.vue";
 import Shop from "./components/Shop.vue";
+import Products from "./components/Products.vue";
 import UserProfil from "./components/UserProfil.vue";
 
 Vue.use(VueRouter);
@@ -54,6 +55,11 @@ const routes = [
 		path: "/admin/shop",
 		name: "shop",
 		component: Shop,
+	},
+	{
+		path: "/admin/products",
+		name: "products",
+		component: Products,
 	},
 	{
 		path: "/admin/newslettres",
