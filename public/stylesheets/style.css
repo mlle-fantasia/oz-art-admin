@@ -83,6 +83,13 @@ h3,
 .btn-secondary:hover {
 	background-color: #56846d;
 }
+.btn-danger {
+	background-color: #757474;
+	color: #fff;
+}
+.btn-danger:hover {
+	background-color: #272727;
+}
 .btn-small {
 	font-weight: 500;
 	padding: 3px 11px;

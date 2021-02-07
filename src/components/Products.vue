@@ -83,6 +83,7 @@
                                 <div class="mt-4">
                                     <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
                                     <button type="button" @click="cancelAddProduct" class="btn btn-primary-reverse ml-2">Annuler</button>
+                                    <button type="button" @click="deleteProduct" class="btn btn-danger float-right">Supprimer</button>
                                 </div>
                             </form>
                         </div>
@@ -94,7 +95,7 @@
                     <!-- liste des produits -->
                     <h2 class="mb-2">Vos produits</h2>
                         <div v-for="product in products" :key="product._id">
-                            <div class="element-line flex">
+                            <div class="element-line flex cursor-pointer" @click="editProduct(product)">
                                 <div class="flex-grow">
                                 <div></div>
                                 <div>
@@ -104,14 +105,14 @@
                                     {{product.price}}
                                 </div>
                                 </div>
-                                <div class="flex ">
+                                <!-- <div class="flex ">
                                     <div @click="editProduct(product)">
                                         <icon class="ml-2 cursor-pointer" color="gray" name="pen"></icon>
                                     </div>
                                     <div @click="deleteProduct(product)">
                                         <icon class="ml-2 cursor-pointer" color="gray" name="trash"></icon>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                 </div>
@@ -176,11 +177,11 @@ export default {
         this.productSelected = response.data.product;
         this.showProductForm = true;
     },
-    deleteProduct(product){
-        this.productSelected = product;
+    deleteProduct(){
         this.showMlleDialog = true;
     },
     async confirmDeleteProduct(){
+        console.log('this.productSelected',this.productSelected);
         let response = await this.$axios.delete(
         this.$config.server_url + "/admin/products/" +  this.productSelected._id ,
       );
@@ -191,6 +192,7 @@ export default {
             this.getProducts();
         }
         this.productSelected = {}
+        this.showProductForm = false;
         
     },
     cancelAddProduct(){
