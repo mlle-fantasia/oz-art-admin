@@ -40,7 +40,7 @@
                                 </div>
                                 <div>
                                     <h2 class="mt-3"> Les images</h2>
-                                    <div class="grid grid-cols-6 mt-2 gap-3" v-if="productSelected.pictures.length">
+                                    <div class="grid grid-cols-6 mt-2 gap-3" v-if="productSelected.pictures && productSelected.pictures.length">
                                         <div v-for="(img,index) in productSelected.pictures" :key="index">
                                             <img :id="'productimg' + index"  :class="index===0?'avatar-selected': ''"
                                                 class="rounded avatar-default" :src="$config.server_url + img" alt="photo du produit">
@@ -83,7 +83,7 @@
                                 <div class="mt-4">
                                     <button class="btn btn-primary mt-2" type="submit">Enregistrer</button>
                                     <button type="button" @click="cancelAddProduct" class="btn btn-primary-reverse ml-2">Annuler</button>
-                                    <button type="button" @click="deleteProduct" class="btn btn-danger float-right">Supprimer</button>
+                                    <button type="button" @click="deleteProduct" class="btn btn-danger float-right mt-2">Supprimer</button>
                                 </div>
                             </form>
                         </div>
