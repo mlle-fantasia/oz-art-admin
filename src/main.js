@@ -16,6 +16,7 @@ Vue.component("Icon", Icon);
 require("dotenv").config();
 const config = {
 	server_url: process.env.VUE_APP_SERVER_URL,
+	site_url: process.env.VUE_APP_SITE_URL,
 };
 
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });

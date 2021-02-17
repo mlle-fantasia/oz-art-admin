@@ -12,6 +12,7 @@ import Dashbord from "./components/Dashbord.vue";
 import Shop from "./components/Shop.vue";
 import Products from "./components/Products.vue";
 import UserProfil from "./components/UserProfil.vue";
+import Cart from "./components/Cart.vue";
 
 Vue.use(VueRouter);
 
@@ -70,6 +71,11 @@ const routes = [
 		path: "/admin/blog",
 		name: "blog",
 		component: Dashbord,
+	},
+	{
+		path: "/admin/cart",
+		name: "cart",
+		component: Cart,
 	},
 	{
 		path: "/admin/profiluser",
